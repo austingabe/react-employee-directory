@@ -7,6 +7,7 @@ function Headers(props) {
         <table className="table">
             <thead>
                 <tr>
+                    {/* Table headers that sort on click */}
                     <th scope="col"></th>
                     <th scope="col" className={props.className} id="name" onClick={props.sortedResults}>Name</th>
                     <th scope="col" className={props.className} id="phone" onClick={props.sortedResults}>Phone</th>
@@ -15,6 +16,7 @@ function Headers(props) {
                 </tr>
             </thead>
             <tbody>
+                {/* For each result from axios call, populate a row with the following info */}
                 {props.users.map(user => (
                     <tr key={user.phone}>
                         <td><img src={user.picture.medium} alt="user profile" /></td>

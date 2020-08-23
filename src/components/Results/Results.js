@@ -22,6 +22,7 @@ class Results extends Component {
             .catch(err => console.log(err));
     }
 
+    // If nothing is searched, use default state, which shows all results. Otherwise, filter results.
     filteredResults = (e) => {
         const { name, value } = e.target;
         this.setState({
@@ -43,6 +44,7 @@ class Results extends Component {
         }
     }
 
+    // Sorting columns up and down by type
     sortedResults = (e) => {
         const { className, id } = e.target;
 

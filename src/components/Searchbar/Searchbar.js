@@ -5,6 +5,7 @@ function Searchbar(props) {
         <div>
             <form>
                 <input
+                    // Enabling the ability to filter as the user types
                     onChange={props.filteredResults}
                     value={props.search}
                     type="text"

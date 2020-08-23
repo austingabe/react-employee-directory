@@ -10,8 +10,6 @@ function App() {
       <div className="container">
         <Results />
       </div>
-
-
     </div>
   );
 }
