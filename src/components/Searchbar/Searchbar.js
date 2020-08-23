@@ -30,7 +30,7 @@ class Searchbar extends Component {
                         placeholder="Search by Full Name"
                     />
                 </form>
-                <hr></hr>
+                <br></br>
             </div>
         );
     }
