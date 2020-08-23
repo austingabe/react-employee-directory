@@ -5,7 +5,7 @@ function Searchbar(props) {
         <div>
             <form>
                 <input
-                    onChange={props.filteredUsers}
+                    onChange={props.filteredResults}
                     value={props.search}
                     type="text"
                     name="search"

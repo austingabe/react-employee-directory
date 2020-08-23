@@ -8,21 +8,21 @@ class Results extends Component {
         search: "",
         default: [],
         filtered: [],
-        filteredUsers: [],
+        filteredResults: [],
         className: "fa fa-fw fa-sort up"
     }
 
     componentDidMount() {
-        this.searchUsers();
+        this.searchResults();
     }
 
-    searchUsers = () => {
+    searchResults = () => {
         API.search()
             .then(res => this.setState({ default: res.data.results, filtered: res.data.results }))
             .catch(err => console.log(err));
     }
 
-    filteredUsers = (e) => {
+    filteredResults = (e) => {
         const { name, value } = e.target;
         this.setState({
             [name]: value
@@ -30,7 +30,7 @@ class Results extends Component {
         if (value === "") {
             this.setState({ filtered: this.state.default })
         } else if (value !== "") {
-            const filtered = this.state.default.filter(data => data.name.first.startsWith(value) || data.name.last.startsWith(value) || (`${data.name.first} ${data.name.last}`).toLowerCase().startsWith(value.toLowerCase()) || data.email.toLowerCase().startsWith(value.toLowerCase()) || data.phone.replace(/[()-]/g, "").startsWith(value))
+            const filtered = this.state.default.filter(data => (`${data.name.first} ${data.name.last}`).toLowerCase().startsWith(value.toLowerCase()) || data.name.last.toLowerCase().startsWith(value.toLowerCase()) || data.phone.startsWith(value) || data.phone.replace(/[()-\s]/g, "").startsWith(value) || data.email.toLowerCase().startsWith(value.toLowerCase()) || data.dob.age.toString().startsWith(value.toString()))
             this.setState({ filtered });
         }
     }
@@ -43,48 +43,48 @@ class Results extends Component {
         }
     }
 
-    sortedUsers = (e) => {
+    sortedResults = (e) => {
         const { className, id } = e.target;
 
         if (className === "fa fa-fw fa-sort up" && id === "name") {
-            const sortUsersup = this.state.filtered.sort((a, b) => (a.name.first.toLowerCase() > b.name.first.toLowerCase()) ? 1 : -1)
+            const sortUp = this.state.filtered.sort((a, b) => (a.name.first > b.name.first) ? 1 : -1)
             this.className(className)
-            this.setState({ filteredUsers: sortUsersup });
+            this.setState({ filteredResults: sortUp });
 
         } else if (className === "fa fa-fw fa-sort down" && id === "name") {
-            const sortUsersDwn = this.state.filtered.sort((a, b) => (a.name.first.toLowerCase() < b.name.first.toLowerCase()) ? 1 : -1)
+            const sortDown = this.state.filtered.sort((a, b) => (a.name.first < b.name.first) ? 1 : -1)
             this.className(className)
-            this.setState({ filteredUsers: sortUsersDwn });
+            this.setState({ filteredResults: sortDown });
 
         } else if (className === "fa fa-fw fa-sort up" && id === "phone") {
-            const sortUsersDwn = this.state.filtered.sort((a, b) => (a.phone > b.phone) ? 1 : -1)
+            const sortDown = this.state.filtered.sort((a, b) => (a.phone.replace(/[()-\s]/g, "") > b.phone.replace(/[()-\s]/g, "")) ? 1 : -1)
             this.className(className)
-            this.setState({ filteredUsers: sortUsersDwn });
+            this.setState({ filteredResults: sortDown });
 
         } else if (className === "fa fa-fw fa-sort down" && id === "phone") {
-            const sortUsersDwn = this.state.filtered.sort((a, b) => (a.phone < b.phone) ? 1 : -1)
+            const sortDown = this.state.filtered.sort((a, b) => (a.phone.replace(/[()-\s]/g, "") < b.phone.replace(/[()-\s]/g, "")) ? 1 : -1)
             this.className(className)
-            this.setState({ filteredUsers: sortUsersDwn });
+            this.setState({ filteredResults: sortDown });
 
         } else if (className === "fa fa-fw fa-sort up" && id === "email") {
-            const sortUsersDwn = this.state.filtered.sort((a, b) => (a.email.toLowerCase() > b.email.toLowerCase()) ? 1 : -1)
+            const sortDown = this.state.filtered.sort((a, b) => (a.email.replace(/[@.-_]/g, "") > b.email.replace(/[@.-_]/g, "")) ? 1 : -1)
             this.className(className)
-            this.setState({ filteredUsers: sortUsersDwn });
+            this.setState({ filteredResults: sortDown });
 
         } else if (className === "fa fa-fw fa-sort down" && id === "email") {
-            const sortUsersDwn = this.state.filtered.sort((a, b) => (a.email.toLowerCase() < b.email.toLowerCase()) ? 1 : -1)
+            const sortDown = this.state.filtered.sort((a, b) => (a.email.replace(/[@.-_]/g, "") < b.email.replace(/[@.-_]/g, "")) ? 1 : -1)
             this.className(className)
-            this.setState({ filteredUsers: sortUsersDwn });
+            this.setState({ filteredResults: sortDown });
 
         } else if (className === "fa fa-fw fa-sort up" && id === "age") {
-            const sortUsersDwn = this.state.filtered.sort((a, b) => (a.dob.age > b.dob.age) ? 1 : -1)
+            const sortDown = this.state.filtered.sort((a, b) => (a.dob.age > b.dob.age) ? 1 : -1)
             this.className(className)
-            this.setState({ filteredUsers: sortUsersDwn });
+            this.setState({ filteredResults: sortDown });
 
         } else if (className === "fa fa-fw fa-sort down" && id === "age") {
-            const sortUsersDwn = this.state.filtered.sort((a, b) => (a.dob.age < b.dob.age) ? 1 : -1)
+            const sortDown = this.state.filtered.sort((a, b) => (a.dob.age < b.dob.age) ? 1 : -1)
             this.className(className)
-            this.setState({ filteredUsers: sortUsersDwn });
+            this.setState({ filteredResults: sortDown });
         }
 
     };
@@ -94,11 +94,11 @@ class Results extends Component {
             <div>
                 <Searchbar
                     search={this.state.search}
-                    filteredUsers={this.filteredUsers}
+                    filteredResults={this.filteredResults}
                 />
                 <Headers
                     users={this.state.filtered}
-                    sortedUsers={this.sortedUsers}
+                    sortedResults={this.sortedResults}
                     className={this.state.className}
                 />
             </div>
