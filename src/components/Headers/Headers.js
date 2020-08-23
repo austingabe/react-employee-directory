@@ -8,10 +8,10 @@ function Headers(props) {
             <thead>
                 <tr>
                     <th scope="col"></th>
-                    <th scope="col" className="sort">Name<span onClick={props.sortedUsers}><i className={props.className} id="name"></i></span></th>
-                    <th scope="col" className="sort">Phone<span onClick={props.sortedUsers}><i className={props.className} id="phone"></i></span></th>
-                    <th scope="col" className="sort">Email<span onClick={props.sortedUsers}><i className={props.className} id="email"></i></span></th>
-                    <th scope="col" className="sort">Age<span onClick={props.sortedUsers}><i className={props.className} id="age"></i></span></th>
+                    <th scope="col" className={props.className} id="name" onClick={props.sortedUsers}>Name</th>
+                    <th scope="col" className={props.className} id="phone" onClick={props.sortedUsers}>Phone</th>
+                    <th scope="col" className={props.className} id="email" onClick={props.sortedUsers}>Email</th>
+                    <th scope="col" className={props.className} id="age" onClick={props.sortedUsers}>Age</th>
                 </tr>
             </thead>
             <tbody>

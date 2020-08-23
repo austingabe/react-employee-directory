@@ -30,7 +30,7 @@ class Results extends Component {
         if (value === "") {
             this.setState({ filtered: this.state.default })
         } else if (value !== "") {
-            const filtered = this.state.default.filter(data => data.name.first.startsWith(value) || data.name.last.startsWith(value) || (`${data.name.first} ${data.name.last}`).toLowerCase().startsWith(value.toLowerCase()) || data.email.toLowerCase().startsWith(value.toLowerCase()) || data.phone.replace(/[()-]/g,"").startsWith(value))
+            const filtered = this.state.default.filter(data => data.name.first.startsWith(value) || data.name.last.startsWith(value) || (`${data.name.first} ${data.name.last}`).toLowerCase().startsWith(value.toLowerCase()) || data.email.toLowerCase().startsWith(value.toLowerCase()) || data.phone.replace(/[()-]/g, "").startsWith(value))
             this.setState({ filtered });
         }
     }
@@ -42,7 +42,6 @@ class Results extends Component {
             this.setState({ className: "fa fa-fw fa-sort up" })
         }
     }
-
 
     sortedUsers = (e) => {
         const { className, id } = e.target;
@@ -96,14 +95,12 @@ class Results extends Component {
                 <Searchbar
                     search={this.state.search}
                     filteredUsers={this.filteredUsers}
-
                 />
                 <Headers
                     users={this.state.filtered}
                     sortedUsers={this.sortedUsers}
                     className={this.state.className}
                 />
-
             </div>
         )
     }
