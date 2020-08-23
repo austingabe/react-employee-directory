@@ -10,11 +10,11 @@ class Results extends Component {
         filtered: [],
         filteredUsers: [],
         className: "fa fa-fw fa-sort up"
-    };
+    }
 
     componentDidMount() {
         this.searchUsers();
-    };
+    }
 
     searchUsers = () => {
         API.search()
@@ -30,8 +30,8 @@ class Results extends Component {
         if (value === "") {
             this.setState({ filtered: this.state.default })
         } else if (value !== "") {
-            const filtered = this.state.default.filter(data => data.name.first.toLowerCase().startsWith(value.toLowerCase()) || data.name.last.toLowerCase().startsWith(value.toLowerCase()) || (`${data.name.first} ${data.name.last}`).toLowerCase().startsWith(value.toLowerCase()))
-            this.setState({ filtered })
+            const filtered = this.state.default.filter(data => data.name.first.startsWith(value) || data.name.last.startsWith(value) || (`${data.name.first} ${data.name.last}`).toLowerCase().startsWith(value.toLowerCase()) || data.email.toLowerCase().startsWith(value.toLowerCase()) || data.phone.replace(/[()-]/g,"").startsWith(value))
+            this.setState({ filtered });
         }
     }
 
@@ -77,12 +77,12 @@ class Results extends Component {
             this.className(className)
             this.setState({ filteredUsers: sortUsersDwn });
 
-        } else if (className === "fa fa-fw fa-sort up" && id === "dob") {
+        } else if (className === "fa fa-fw fa-sort up" && id === "age") {
             const sortUsersDwn = this.state.filtered.sort((a, b) => (a.dob.age > b.dob.age) ? 1 : -1)
             this.className(className)
             this.setState({ filteredUsers: sortUsersDwn });
 
-        } else if (className === "fa fa-fw fa-sort down" && id === "dob") {
+        } else if (className === "fa fa-fw fa-sort down" && id === "age") {
             const sortUsersDwn = this.state.filtered.sort((a, b) => (a.dob.age < b.dob.age) ? 1 : -1)
             this.className(className)
             this.setState({ filteredUsers: sortUsersDwn });

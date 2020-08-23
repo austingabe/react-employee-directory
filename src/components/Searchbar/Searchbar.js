@@ -1,39 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Searchbar extends Component {
-    // const [name, setName] = useState("");
-    state = {
-        fullName: "",
-        phone: "",
-        email: "",
-        dob: ""
-    };
-
-    handleInputChange = event => {
-        let value = event.target.value;
-        const name = event.target.name;
-
-        this.setState({
-            [name]: value
-        });
-    };
-
-    render() {
-        return (
-            <div>
-                <form>
-                    <input
-                        value={this.state.fullName}
-                        name="fullName"
-                        onChange={this.handleInputChange}
-                        type="text"
-                        placeholder="Search by Full Name"
-                    />
-                </form>
-                <br></br>
-            </div>
-        );
-    }
+function Searchbar(props) {
+    return (
+        <div>
+            <form>
+                <input
+                    onChange={props.filteredUsers}
+                    value={props.search}
+                    type="text"
+                    name="search"
+                    placeholder="Search by Name"
+                />
+            </form>
+            <br></br>
+        </div>
+    )
 }
 
 export default Searchbar;
